@@ -1,107 +1,79 @@
-## 📖 Lipy`Sync`
+## 📖 FSync
 
-Ten programik **eliminuje problem rozproszenia bibliotek**, poprzez synchronizację 🔄 wybranych plików oraz całych katalogów, które są porozrzucane po różnych projektach na kompie _(lokalnie)_. Dzięki temu unikasz chaosu i ręcznego kopiowania plików.
+This tool **eliminates the problem of scattered libraries** by synchronizing 🔄 selected files spread across different projects on your machine _(locally)_. No more chaos and manual file copying.
 
-Pozornie centralizacja bibliotek wydaje się świetnym pomysłem. Ułatwia organizację pracy i pozwala uniknąć duplikowania kodu. W praktyce pojawiają się jednak pewne komplikacje:
+At first glance, centralizing libraries seems like a great idea. It makes work easier and avoids code duplication. In practice, however, some complications arise:
 
-- Nie zawsze chcemy aktualizować bibliotekę w projekcie, którego dalej nie rozwijamy, ale nadal musi on działać.  
-- Niektóre biblioteki muszą być częścią repozytorium. Kiedy oddajemy/zamykamy projekt, chcemy, aby wszystko było w jednym miejscu, bez konieczności pobierania dodatkowych zależności z zewnętrznych źródeł.
-- Lepiej, gdy wszystkie zasoby są w katalogu projektu. Upraszcza to konfigurację _(Makefile, CMake)_, eliminuje problemy ze ścieżkami i wersjami bibliotek oraz poprawia integrację z IDE.
+- You don't always want to update a library in a project you're no longer developing, but it still needs to work.
+- Some libraries must be part of the repository. When you hand off/close a project, you want everything in one place, without having to pull additional dependencies from external sources.
+- It's better when all resources are in the project directory. It simplifies configuration _(Makefile, CMake)_, eliminates path and version issues, and improves IDE integration.
 
-To rozwiązanie sprawdzi się idealnie, jeśli prowadzisz wiele mniejszych projektów i zależy Ci na sprawnym zarządzaniu bibliotekami _(kodem, który pojawia się w wielu projektach)_. Jeśli często wprowadzasz zmiany, chcesz uniknąć bałaganu w kodzie, ale jednocześnie nie masz czasu, by poświęcać godziny na porządkowanie zależności, to narzędzie jest dla Ciebie! Program jest banalnie prosty. Liczy się wydajna i skuteczna praca, bez zbędnej biurokracji. Społeczność open source może robić swoje, ale tutaj priorytetem jest zadowolony klient i dobrze działający projekt zrobiony ⚡**szybko** i 👍**jako tako**.
+This solution is perfect if you run many smaller projects and care about efficient library management _(code that appears across multiple projects)_. If you make frequent changes, want to avoid messy code, but don't have time to spend hours organizing dependencies — this tool is for you! The program is dead simple. What matters is efficient and effective work, without unnecessary bureaucracy. The open source community can do its thing, but here the priority is a happy client and a working project done ⚡**fast** and 👍**good enough**.
 
-### 🧐 Problemy!
+### 🧐 Problems!
 
-- ❌ **Możliwe przypadkowe nadpisania**: jeśli edytujesz dwie wersje biblioteki jednocześnie.
-- ✅ Unikaj tego, ale jeśli się zdarzy, każda nadpisana wersja jest zapisywana jako kopia zapasowa z datą, więc zawsze możesz odzyskać zmiany.
-- ❌ **Brak izolacji środowiska**: różne projekty mogą wymagać różnych wersji tej samej biblioteki.
-- ✅ To nie problem! wystarczy utworzyć osobne wpisy dla różnych wersji, dzięki czemu synchronizacja będzie niezależna. Możesz też zakomentować wpisy dla bibliotek, które nie powinny być już aktualizowane.
-- ❌ **Dublowanie kodu na repozytorium**: zamiast jednej kopii biblioteki, masz ich kilka w różnych projektach.
-- ✅ I tak ma być! Każdy klient powinien mieć swoją wersję biblioteki, bez zależności od innych repozytoriów. Pełna kontrola, zero niepotrzebnych komplikacji.
+- ❌ **Possible accidental overwrites**: if you edit two versions of a library at the same time.
+- ✅ Avoid this, but if it happens, every overwritten version is saved as a timestamped backup, so you can always recover your changes.
+- ❌ **No environment isolation**: different projects may require different versions of the same library.
+- ✅ Not a problem! Just create separate entries for different versions, keeping synchronization independent. You can also comment out entries for libraries that shouldn't be updated anymore.
+- ❌ **Code duplication across repositories**: instead of one library copy, you have several in different projects.
+- ✅ That's the point! Each client should have their own library version, with no dependencies on other repos. Full control, zero unnecessary complications.
 
-### 🤔 Alternatywy?
+### 🤔 Alternatives?
 
-Oczywiście można podejść do tego bardziej profesjonalnie, poprzez:
+Of course you can approach this more professionally by:
 
-- Wersjonowanie bibliotek jako osobne projekty/repozytoria i ich aktualizację w razie potrzeby.
-- Korzystanie z Git **Submodules**, co umożliwia śledzenie wersji biblioteki w repozytorium.
-- Zewnętrzne menedżery pakietów _(`pip`, `npm`, `cargo`)_, które ułatwiają zarządzanie zależnościami.
+- Versioning libraries as separate projects/repositories and updating them as needed.
+- Using Git **Submodules**, which allows tracking library versions in the repository.
+- External package managers _(`pip`, `npm`, `cargo`)_ that simplify dependency management.
 
-Jeśli któreś z naszych bibliotek doczekają się stabilnej wersji, któej nie zmieniamy chaotycznie co projekt oraz będą wystarczjąco fajne dobrze jest przmyśleć jendo z powyższych rozwiązań.
+If any of our libraries reach a stable version that we don't chaotically change every project, and they're good enough, it's worth considering one of the above solutions.
 
-### ⚙️ Config 
+### ⚙️ Config
 
-Plik **`sync.json`** definiuje konfigurację synchronizacji plików i folderów bibliotecznych. Każdy obiekt w tabeli określa nazwę `name` biblioteki oraz listę ścieżek `paths`, które podlegają synchronizacji. Program automatycznie rozróżnia, czy biblioteka jest plikiem czy katalogiem, ale wszystkie ścieżki muszą być tego samego typu _(plikami, albo katalogami)_.
+The **`sync.json`** file defines file synchronization configuration. Each entry is a key _(filename)_ and a list of paths to synchronize. Keys starting with `#` are treated as commented out and skipped.
 
-W przypadku katalogów możemy dodać pole `whiteList`, które umożliwi synchronizację tylko wskazanych plików, lub `blackList`, które wykluczy określone pliki. Podczas synchronizacji katalogów nazwy plików muszą być identyczne!
-
-Dodatkowo, ścieżki mogą być zapisane w skróconej formie przy użyciu pliku **`dict.ini`**, w którym definiowane są aliasy dla często powtarzających się lokalizacji. W ścieżkach w `sync.json` można odwoływać się do tych aliasów za pomocą notacji `{key}`. Jeżeli w ścieżce znajduje się znak `#` na początku, to jest ona traktowana jako zakomentowana i nie będzie brana pod uwagę w synchronizacji.
+Paths can use shorthand notation via the **`dict.ini`** file, which defines aliases for frequently repeated locations. In `sync.json` paths you can reference these aliases using `{key}` notation.
 
 #### Example
 
-W przykładzie synchronizowane są dwa pliki i jeden katalog.
-Z pliku `sync.json` trzeba usunąć komentarze⚠️
-Wywołanie programu z flagą `-e`, `--example`, spowoduje stworzenie plików z przykładu lokalnie.
+Running the program with the `-e`, `--example` flag will create example config files locally.
 
-Plik `dict.ini`
-
+File `dict.ini`
 ```ini
-web = C:/Users/Me/Projects/WebPage/backend # Ścieżka do katalogu backendu projektu internetowego
-staff = C:/Users/Me/Desktop/MyStaff/test # Katalog użytkownika, zawierający różne testy
-work = C:/Users/Me/Work/Drivers/repos # Główna ścieżka robocza dla repozytoriów
+web = C:/Users/Me/Projects/WebPage/backend
+staff = C:/Users/Me/Desktop/MyStaff/test
+work = C:/Users/Me/Work/Drivers/repos
 ```
 
-Plik `sync.json`
-
+File `sync.json`
 ```json
-[
-  {
-    "name": "serial_port.c", // Wpis odnosi się do pliku 
-    "paths": [
-      "{staff}/serial.c", // Pełna ścieżka: "C:/Users/Me/Desktop/MyStaff/test/serial.c" 
-      "{work}/PLC/{name}" // Nazwa pliku: "serial_port.c" 
-    ]
-  },
-  {
-    "name": "utils", // Wpis odnosi się do pliku 
-    "paths": [
-      "{web}/lib/{name}",
-      "#{staff}/python/{name}.py", // Plik wyłączony z synchronizacji 
-      "{work}/PLC/misc.py"
-    ]
-  },
-  {
-    "name": "protobuf", // Wpis odnosi się do katalogu 
-    "paths": [
-      "{web}/proto/",
-      "{staff}/{name}/" // Nazwa katalogu: "protobuf" 
-    ]
-  }
-]
+{
+  "serial.c": ["{staff}/serial.c", "{work}/PLC/serial_port.c"],
+  "utils.py": ["{web}/lib/utils.py", "{work}/PLC/misc.py"],
+  "#old_lib.c": ["{staff}/old_lib.c", "{work}/legacy/old_lib.c"]
+}
 ```
 
 ### 🚀 Use
 
-Użycie jest banalnie proste. Wystarczy uruchomić program, który wygeneruje raport:
-
+First, set the workspace — the directory containing your config files (`sync.json`, `dict.ini`) and where backups will be stored:
 ```bash
-py main.py  # gdy używamy nieskompilowanej wersji z repozytorium  
-./libpysync.exe  # gdy używamy skompilowanej aplikacji z wydania (release)  
-libpysync  # gdy dodamy ją do ścieżki systemowej  
+py -m fsync -w C:/Projects/sync  # specified path
+py -m fsync -w                   # current directory
 ```
 
-Aby zsynchronizować _(czyli zaktualizować starsze wersje bibliotek)_, wystarczy ponownie uruchomić program z flagą `-u`, `--update`:
-
+Running the program generates a report:
 ```bash
-py main.py --update  
-./libpysync.exe -u  
-libpysync -u
+py -m fsync
 ```
 
-Podczas uruchomienia programu bez aktualizacji _(bez flagi `-u`, `--update`)_, dla każdej pary plików z rozbieżnościami generowane są tagi. Można je później wykorzystać do szybkiego podejrzenia różnic między plikami używając flagi `-d`, `--diff` 
-
+To synchronize _(i.e. update older file versions)_, just add the `-u`, `--update` flag:
 ```bash
-py main.py -d [lasted].[obsolete]  # for example: 1.2
-./libpysync.exe -d [lasted].[obsolete]  # for example: 1.2
-libpysync -d [lasted].[obsolete]  # for example: 1.2
+py -m fsync -u
+```
+
+For each pair of files with discrepancies, tags are generated. You can use them to inspect differences between files with the `-d`, `--diff` flag:
+```bash
+py -m fsync -d 1.1
 ```

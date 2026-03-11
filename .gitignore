@@ -1,5 +1,7 @@
-*/
+**/__pycache__/
+*.pyc
+*.pyo
 *.spec
-*.ini
-*.json
-*.pdf
+.venv/
+.build/
+.dist/
