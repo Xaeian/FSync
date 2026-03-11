@@ -57,7 +57,7 @@ Plik `sync.json`
 
 ### 🚀 Use
 
-Najpierw ustaw workspace — katalog w którym znajdują się pliki konfiguracyjne (`sync.json`, `dict.ini`) i w którym będą tworzone kopie zapasowe:
+Najpierw ustaw workspace: katalog w którym znajdują się pliki konfiguracyjne (`sync.json`, `dict.ini`) i w którym będą tworzone kopie zapasowe:
 ```bash
 py -m fsync -w C:/Projects/sync  # podana ścieżka
 py -m fsync -w                   # bieżący katalog

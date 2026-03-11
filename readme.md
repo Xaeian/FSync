@@ -8,7 +8,7 @@ At first glance, centralizing libraries seems like a great idea. It makes work e
 - Some libraries must be part of the repository. When you hand off/close a project, you want everything in one place, without having to pull additional dependencies from external sources.
 - It's better when all resources are in the project directory. It simplifies configuration _(Makefile, CMake)_, eliminates path and version issues, and improves IDE integration.
 
-This solution is perfect if you run many smaller projects and care about efficient library management _(code that appears across multiple projects)_. If you make frequent changes, want to avoid messy code, but don't have time to spend hours organizing dependencies — this tool is for you! The program is dead simple. What matters is efficient and effective work, without unnecessary bureaucracy. The open source community can do its thing, but here the priority is a happy client and a working project done ⚡**fast** and 👍**good enough**.
+This solution is perfect if you run many smaller projects and care about efficient library management _(code that appears across multiple projects)_. If you make frequent changes, want to avoid messy code, but don't have time to spend hours organizing dependencies: this tool is for you! The program is dead simple. What matters is efficient and effective work, without unnecessary bureaucracy. The open source community can do its thing, but here the priority is a happy client and a working project done ⚡**fast** and 👍**good enough**.
 
 ### 🧐 Problems!
 
@@ -57,7 +57,7 @@ File `sync.json`
 
 ### 🚀 Use
 
-First, set the workspace — the directory containing your config files (`sync.json`, `dict.ini`) and where backups will be stored:
+First, set the workspace: the directory containing your config files (`sync.json`, `dict.ini`) and where backups will be stored:
 ```bash
 py -m fsync -w C:/Projects/sync  # specified path
 py -m fsync -w                   # current directory
