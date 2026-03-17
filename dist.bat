@@ -10,4 +10,4 @@ pyinstaller --onefile ^
   --name FSync ^
   --icon=fsync.ico ^
   --paths=./dev_console ^
-  build.py
+  dist.py
