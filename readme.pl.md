@@ -70,24 +70,24 @@ pip install fsync[diff]  # + rich (podgląd różnic)
 Najpierw ustaw workspace: katalog w którym znajdują się pliki konfiguracyjne (`sync.json`, `dict.ini`) i w którym będą tworzone kopie zapasowe:
 
 ```sh
-fsync -w C:/Projects/sync  # podana ścieżka
-fsync -w                   # bieżący katalog
+pyfsync -w C:/Projects/sync  # podana ścieżka
+pyfsync -w                   # bieżący katalog
 ```
 
 Uruchomienie programu generuje raport:
 
 ```sh
-fsync
+pyfsync
 ```
 
 Aby zsynchronizować _(czyli zaktualizować starsze wersje plików)_, wystarczy dodać flagę `-u`, `--update`:
 
 ```sh
-fsync -u
+pyfsync -u
 ```
 
 Dla każdej pary plików z rozbieżnościami generowane są tagi. Można je wykorzystać do podejrzenia różnic między plikami flagą `-d`, `--diff`:
 
 ```sh
-fsync -d 1.1
+pyfsync -d 1.1
 ```

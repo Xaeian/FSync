@@ -71,24 +71,24 @@ pip install fsync[diff]  # + rich (diff display)
 First, set the workspace: the directory containing your config files (`sync.json`, `dict.ini`) and where backups will be stored:
 
 ```sh
-fsync -w C:/Projects/sync  # specified path
-fsync -w                   # current directory
+pyfsync -w C:/Projects/sync  # specified path
+pyfsync -w                   # current directory
 ```
 
 Running the program generates a report:
 
 ```bash
-fsync
+pyfsync
 ```
 
 To synchronize _(i.e. update older file versions)_, just add the `-u`, `--update` flag:
 
 ```bash
-fsync -u
+pyfsync -u
 ```
 
 For each pair of files with discrepancies, tags are generated. You can use them to inspect differences between files with the `-d`, `--diff` flag:
 
 ```bash
-fsync -d 1.1
+pyfsync -d 1.1
 ```

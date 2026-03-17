@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "fsync"
-version = "1.0.0"
+version = "1.0.1"
 description = "Local file synchronization for scattered shared libraries"
 readme = "readme.md"
 license = {text = "MIT"}
@@ -18,7 +18,7 @@ diff = ["rich"]
 all = ["rich"]
 
 [project.scripts]
-fsync = "fsync.__main__:main"
+pyfsync = "fsync.__main__:main"
 
 [project.urls]
 Repository = "https://github.com/Xaeian/FSync"
