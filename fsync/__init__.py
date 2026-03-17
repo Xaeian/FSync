@@ -19,6 +19,10 @@ __python__ = ">=3.12"
 __description__ = "Local file synchronization for scattered shared libraries"
 __author__ = "Xaeian"
 __keywords__ = ["sync", "files", "libraries", "backup"]
+__dependencies__ = ["xaeian"]
+__scripts__ = {
+  "fsync": "fsync.__main__:main",
+}
 
 from .utils import backup_file, BACKUP_DIR, BACKUP_KEEP
 

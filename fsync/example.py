@@ -3,8 +3,7 @@
 """Generate example config files (dict.ini, sync.json)."""
 
 import os, platform
-from xaeian import JSON, INI, FILE, Print
-from xaeian.colors import Color as c
+from xaeian import JSON, INI, FILE, Print, Color as c
 
 def create():
   p = Print()

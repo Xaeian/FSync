@@ -11,11 +11,14 @@ license = {text = "MIT"}
 requires-python = ">=3.12"
 authors = [{name = "Xaeian"}]
 keywords = ["sync", "files", "libraries", "backup"]
-dependencies = []
+dependencies = ["xaeian"]
 
 [project.optional-dependencies]
 diff = ["rich"]
 all = ["rich"]
+
+[project.scripts]
+fsync = "fsync.__main__:main"
 
 [project.urls]
 Repository = "https://github.com/Xaeian/FSync"

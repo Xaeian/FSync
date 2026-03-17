@@ -40,6 +40,7 @@ Paths can use shorthand notation via the **`dict.ini`** file, which defines alia
 Running the program with the `-e`, `--example` flag will create example config files locally.
 
 File `dict.ini`
+
 ```ini
 web = C:/Users/Me/Projects/WebPage/backend
 staff = C:/Users/Me/Desktop/MyStaff/test
@@ -47,6 +48,7 @@ work = C:/Users/Me/Work/Drivers/repos
 ```
 
 File `sync.json`
+
 ```json
 {
   "serial.c": ["{staff}/serial.c", "{work}/PLC/serial_port.c"],
@@ -55,25 +57,38 @@ File `sync.json`
 }
 ```
 
+### 📦 Install
+
+```sh
+pip install fsync        # basic
+pip install fsync[diff]  # + rich (diff display)
+```
+
+> Also available as standalone `.exe` on [GitHub Releases](https://github.com/Xaeian/FSync/releases).
+
 ### 🚀 Use
 
 First, set the workspace: the directory containing your config files (`sync.json`, `dict.ini`) and where backups will be stored:
-```bash
-py -m fsync -w C:/Projects/sync  # specified path
-py -m fsync -w                   # current directory
+
+```sh
+fsync -w C:/Projects/sync  # specified path
+fsync -w                   # current directory
 ```
 
 Running the program generates a report:
+
 ```bash
-py -m fsync
+fsync
 ```
 
 To synchronize _(i.e. update older file versions)_, just add the `-u`, `--update` flag:
+
 ```bash
-py -m fsync -u
+fsync -u
 ```
 
 For each pair of files with discrepancies, tags are generated. You can use them to inspect differences between files with the `-d`, `--diff` flag:
+
 ```bash
-py -m fsync -d 1.1
+fsync -d 1.1
 ```

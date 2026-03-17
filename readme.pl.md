@@ -40,6 +40,7 @@ Plik **`sync.json`** definiuje konfigurację synchronizacji plików. Każdy wpis
 Wywołanie programu z flagą `-e`, `--example`, spowoduje stworzenie plików z przykładu lokalnie.
 
 Plik `dict.ini`
+
 ```ini
 web = C:/Users/Me/Projects/WebPage/backend
 staff = C:/Users/Me/Desktop/MyStaff/test
@@ -47,6 +48,7 @@ work = C:/Users/Me/Work/Drivers/repos
 ```
 
 Plik `sync.json`
+
 ```json
 {
   "serial.c": ["{staff}/serial.c", "{work}/PLC/serial_port.c"],
@@ -55,25 +57,37 @@ Plik `sync.json`
 }
 ```
 
+### 📦 Instalacja
+```sh
+pip install fsync        # podstawowa
+pip install fsync[diff]  # + rich (podgląd różnic)
+```
+
+> Dostępny też jako `.exe` na [GitHub Releases](https://github.com/Xaeian/FSync/releases).
+
 ### 🚀 Use
 
 Najpierw ustaw workspace: katalog w którym znajdują się pliki konfiguracyjne (`sync.json`, `dict.ini`) i w którym będą tworzone kopie zapasowe:
-```bash
-py -m fsync -w C:/Projects/sync  # podana ścieżka
-py -m fsync -w                   # bieżący katalog
+
+```sh
+fsync -w C:/Projects/sync  # podana ścieżka
+fsync -w                   # bieżący katalog
 ```
 
 Uruchomienie programu generuje raport:
-```bash
-py -m fsync
+
+```sh
+fsync
 ```
 
 Aby zsynchronizować _(czyli zaktualizować starsze wersje plików)_, wystarczy dodać flagę `-u`, `--update`:
-```bash
-py -m fsync -u
+
+```sh
+fsync -u
 ```
 
 Dla każdej pary plików z rozbieżnościami generowane są tagi. Można je wykorzystać do podejrzenia różnic między plikami flagą `-d`, `--diff`:
-```bash
-py -m fsync -d 1.1
+
+```sh
+fsync -d 1.1
 ```
