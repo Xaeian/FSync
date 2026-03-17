@@ -67,7 +67,7 @@ pip install fsync[diff]  # + rich (podgląd różnic)
 
 ### 🚀 Use
 
-Najpierw ustaw workspace: katalog w którym znajdują się pliki konfiguracyjne (`sync.json`, `dict.ini`) i w którym będą tworzone kopie zapasowe:
+Najpierw ustaw workspace: katalog w którym znajdują się pliki konfiguracyjne _(`sync.json`, `dict.ini`)_ i w którym będą tworzone kopie zapasowe:
 
 ```sh
 pyfsync -w C:/Projects/sync  # podana ścieżka

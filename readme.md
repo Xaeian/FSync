@@ -68,7 +68,7 @@ pip install fsync[diff]  # + rich (diff display)
 
 ### 🚀 Use
 
-First, set the workspace: the directory containing your config files (`sync.json`, `dict.ini`) and where backups will be stored:
+First, set the workspace: the directory containing your config files _(`sync.json`, `dict.ini`)_ and where backups will be stored:
 
 ```sh
 pyfsync -w C:/Projects/sync  # specified path
