@@ -1,4 +1,4 @@
-# fsync/build.py
+# dist.py
 
-from fsync.main import main
+from fsync.__main__ import main
 main()

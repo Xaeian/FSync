@@ -1,13 +1,12 @@
 py -m pip show pyinstaller > nul 2>&1 ^
   || py -m pip install -U pyinstaller
 
-if exist .\dist\FSync.exe ^
-  del .\dist\FSync.exe
+if exist .\dist\pyfsync.exe ^
+  del .\dist\pyfsync.exe
 
-pyinstaller --onefile ^
+py -m PyInstaller --onefile ^
   --workpath ./.build ^
   --distpath ./.dist ^
-  --name FSync ^
+  --name pyfsync ^
   --icon=fsync.ico ^
-  --paths=./dev_console ^
   dist.py

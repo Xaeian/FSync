@@ -13,7 +13,7 @@ Example:
   >>> from fsync.diff import show
 """
 
-__version__ = "1.0.1"
+__version__ = "1.0.2"
 __repo__ = "Xaeian/FSync"
 __python__ = ">=3.12"
 __description__ = "Local file synchronization for scattered shared libraries"
